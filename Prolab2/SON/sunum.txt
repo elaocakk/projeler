@@ -1,0 +1,15 @@
+Tekrar Eden Isimler:
+        Jasmine          Oliver
+           John           Grant
+           John           Grant
+           John           Grant
+Tekrar Eden Isimler Silindi.
+Isimler Kayit Sirasina Gore Siralandi.
+Numara Atamasi Yapildi.
+Isimler Numaralarina Gore Tekrar Siralandi.
+
+Ogrenciler Siniflara Esit Olacak Sekilde Dagitildi.
+
+Ogrenciler Minumum Sinif Sayisi Olacak Sekilde Dagitildi.
+
+Acikta Ogrenci Kalmadi.

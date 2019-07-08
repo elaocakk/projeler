@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1508781026 source:c:\users\ela&elif\desktop\projeler\proje 2\sinifa_atama\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+

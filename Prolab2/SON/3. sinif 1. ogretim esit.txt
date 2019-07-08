@@ -1,0 +1,8 @@
+##################################################################################
+3. Siniftaki Ogrenciler
+        1701008        Felicity        Ferguson               8               I
+        1701009        Jennifer          Powell               9               I
+        1701010          Tracey         Chapman              10               I
+        1701011           Dylan         Burgess              11               I
+        1701012         Anthony           Paige              12               I
+        1701013           Keith         Lambert              13               I

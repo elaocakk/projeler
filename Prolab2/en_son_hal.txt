@@ -1,0 +1,641 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include  <time.h>
+
+void en_az_dagilim1();
+void en_az_dagilim2();
+void esit_sinif_dagilimi1();
+void esit_sinif_dagilimi2();
+void sirala();
+void tekrar();
+int isim_alma();
+     struct ogrenci{
+char isim[1000];
+char soyad[1000];
+char numara[1000];
+char kayitsira[1000];
+char ogretimtur[1000];
+char isim2[1000];
+char soyad2[1000];
+char numara2[1000];
+char kayitsira2[1000];
+char ogretimtur2[1000];
+char isim3[1000];
+char soyad3[1000];
+char numara3[1000];
+char kayitsira3[1000];
+char ogretimtur3[1000];
+char tmp[1000];
+char tmp2[1000];
+}kisi[1000],temp,tempp,temppp;
+     struct gecici{
+char g_isim[1000];
+char g_soyad[1000];
+char g_numara[1000];
+char g_kayitsira[1000];
+char g_ogretimtur[1000];
+}gec[1000],g_temp;
+
+void tekrar(){
+printf("En az 2 kez ismi gecen ogrencilerin tekrarlari silinmistir. \n");
+FILE *yeni=fopen("deneme2.txt","w");
+FILE *dosya=fopen("deneme.txt","r+");
+if(dosya!=NULL){
+        int a=0,i;
+     for(i=0;i=!feof(dosya);i++){
+    fscanf(dosya,"%s %s %s %s %s",kisi[a].numara,kisi[a].isim,kisi[a].soyad,kisi[a].kayitsira,kisi[a].ogretimtur);
+    a++;      }
+    for(i=0;i<a+1;i++){
+    if( strcmp(kisi[i].isim,kisi[i+1].isim)==0 && strcmp(kisi[i].soyad,kisi[i+1].soyad)==0){
+            printf("%s\t%s\n",kisi[i].isim,kisi[i].soyad);    }
+  }       }
+   fclose(dosya);
+   fclose(yeni);
+}
+int isim_alma() {
+
+FILE *yeni=fopen("deneme2.txt","a+");
+int i,a=0,j;
+
+for(i=0;i=!feof(yeni);i++){
+    fscanf(yeni,"%s %s %s %s %s",kisi[a].numara,kisi[a].isim,kisi[a].soyad,kisi[a].kayitsira,kisi[a].ogretimtur);
+    a++;        }
+    printf("a2: %d\n",a);
+
+  for(i=0; i<a-1; i++){
+    if(strcmp(kisi[i].ogretimtur,"I")==0){
+        memcpy(kisi[i].isim2,kisi[i].isim,strlen(kisi[i].isim)+1);
+        memcpy(kisi[i].soyad2,kisi[i].soyad,strlen(kisi[i].soyad)+1);
+        memcpy(kisi[i].numara2,kisi[i].numara,strlen(kisi[i].numara)+1);
+        memcpy(kisi[i].kayitsira2,kisi[i].kayitsira,strlen(kisi[i].kayitsira)+1);
+        memcpy(kisi[i].ogretimtur2,kisi[i].ogretimtur,strlen(kisi[i].ogretimtur)+1);
+
+    }                   }
+
+    for(i=0; i<a-1; i++){
+    if(strcmp(kisi[i].ogretimtur,"II")==0){
+        memcpy(kisi[i].isim3,kisi[i].isim,strlen(kisi[i].isim)+1);
+        memcpy(kisi[i].soyad3,kisi[i].soyad,strlen(kisi[i].soyad)+1);
+        memcpy(kisi[i].numara3,kisi[i].numara,strlen(kisi[i].numara)+1);
+        memcpy(kisi[i].kayitsira3,kisi[i].kayitsira,strlen(kisi[i].kayitsira)+1);
+        memcpy(kisi[i].ogretimtur3,kisi[i].ogretimtur,strlen(kisi[i].ogretimtur)+1);
+
+    }                  }
+
+fclose(yeni);
+return a;
+}
+
+int main() {
+    time_t start,end;
+    time(&start);
+    tekrar();
+
+    FILE *dosya=fopen("deneme.txt","r+");
+    FILE *yeni=fopen("deneme2.txt","w");
+
+    int aa=0;
+    if(dosya!=NULL){
+        int a=0,i;
+       for(i=0;i=!feof(dosya);i++){
+        fscanf(dosya,"%s %s %s %s %s",kisi[a].numara,kisi[a].isim,kisi[a].soyad,kisi[a].kayitsira,kisi[a].ogretimtur);
+        a++;    }
+
+    printf("a1:%d\n",a);
+
+    for(i=0;i<1000;i++){
+    if( strcmp(kisi[i].isim,kisi[i-1].isim)==0 && strcmp(kisi[i].soyad,kisi[i-1].soyad)==0){
+        fscanf(dosya,"%s %s %s %s %s",kisi[i].numara,kisi[i].isim,kisi[i].soyad,kisi[i].kayitsira,kisi[i].ogretimtur);
+}  else{
+       fprintf(yeni,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].numara,kisi[i].isim,kisi[i].soyad,kisi[i].kayitsira,kisi[i].ogretimtur); aa++;
+    }           }
+}
+    printf("\n%d",aa);
+
+   fclose(dosya);
+   fclose(yeni);
+//numara atama
+int a=isim_alma();
+
+///*************** I. O G R E T I M *********************
+
+int i,j;
+int num2,num1;
+int bosayi=0;
+
+FILE *ptr=fopen("1.ogr.txt","w");
+yeni=fopen("deneme2.txt","w");
+
+for(i=0; i<a-1; i++) {
+for(j=0; j<a-i-1; j++){
+   if(atoi(kisi[j].kayitsira2)>atoi(kisi[j+1].kayitsira2)){
+     temp=kisi[j];
+     kisi[j]=kisi[j+1];
+     kisi[j+1]=temp;    }
+}  }
+
+int kytsirasi=1;
+char numdizi[1000],k_gec[1000];
+num1=1;
+
+for(i=0; i<=1000; i++){
+    if(strcmp(kisi[i].numara2,"")==0){
+            continue;  }
+    else {
+        if ( strcmp(kisi[i].kayitsira2,"0")==0) {
+            strcpy(kisi[i].tmp,kisi[i].numara2);
+            fprintf(ptr,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim2,kisi[i].soyad2,kisi[i].kayitsira2,kisi[i].ogretimtur2);
+            fprintf(yeni,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim2,kisi[i].soyad2,kisi[i].kayitsira2,kisi[i].ogretimtur2);
+            bosayi++;
+            continue;  }
+
+        strcpy(kisi[i].tmp,"1701");
+        sprintf(numdizi,"%03d",num1);
+        strcat(kisi[i].tmp,numdizi);
+
+        strcpy(kisi[i].tmp2,"");
+        sprintf(k_gec,"%03d",kytsirasi);
+        strcat(kisi[i].tmp2,k_gec);
+
+        fprintf(ptr,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim2,kisi[i].soyad2,kisi[i].tmp2,kisi[i].ogretimtur2);
+        fprintf(yeni,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim2,kisi[i].soyad2,kisi[i].tmp2,kisi[i].ogretimtur2);
+        num1++;
+        kytsirasi++;
+        strcpy(kisi[i].numara2,kisi[i].tmp);
+        bosayi++;
+        }           }
+
+fclose(ptr);
+fclose(yeni);
+
+///************** II. O G R E T I M ****************
+
+FILE*ptr2=fopen("2.ogr.txt","w");
+yeni=fopen("deneme2.txt","a+");
+int iosayi=0;
+for(i=0; i<a-1; i++) {
+for(j=0; j<a-i-1; j++){
+   if(atoi(kisi[j].kayitsira3)>atoi(kisi[j+1].kayitsira3)){
+     temp=kisi[j];
+     kisi[j]=kisi[j+1];
+     kisi[j+1]=temp;
+   }
+}     }
+
+char numdizi2[1000],k_gec2[1000];
+num2=1;
+for(i=0; i<=1000; i++){
+    if(strcmp(kisi[i].numara3,"")==0 ){
+            continue;    }
+    else {
+        if ( strcmp(kisi[i].kayitsira3,"0")==0 && strcmp(kisi[i].numara3,"-")!=0) {
+            strcpy(kisi[i].tmp,kisi[i].numara3);
+            fprintf(ptr2,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim3,kisi[i].soyad3,kisi[i].kayitsira3,kisi[i].ogretimtur3);
+            fprintf(yeni,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim3,kisi[i].soyad3,kisi[i].kayitsira3,kisi[i].ogretimtur3);
+            iosayi++;
+            continue;           }
+
+        strcpy(kisi[i].tmp,"1702"); // yeni kayytlaryn numara ba?yna bunu atar
+        sprintf(numdizi2,"%03d",num2);
+        strcat(kisi[i].tmp,numdizi2);
+
+        strcpy(kisi[i].tmp2,"");
+        sprintf(k_gec2,"%03d",kytsirasi);
+        strcat(kisi[i].tmp2,k_gec2);
+
+        fprintf(ptr2,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim3,kisi[i].soyad3,kisi[i].tmp2,kisi[i].ogretimtur3);
+        fprintf(yeni,"%-8s\t %-8s\t %-8s\t %-8s\t %-8s\n",kisi[i].tmp,kisi[i].isim3,kisi[i].soyad3,kisi[i].tmp2,kisi[i].ogretimtur3);
+        num2++;
+        kytsirasi++;
+        strcpy(kisi[i].numara3,kisi[i].tmp);
+        iosayi++; //ogrenci sayisi bulunur
+        }               }
+
+fclose(ptr2);
+fclose(yeni);
+
+///******************** K A Y I T E K L E M E ***************************
+
+int ekle,tur,sor,k_gec3[1000],k_gec4[1000];
+char dizi[1000];
+int topl=bosayi+iosayi;
+
+dosya=fopen("deneme.txt","a+");
+ptr=fopen("1.ogr.txt","a+");
+ptr2=fopen("2.ogr.txt","a+");
+yeni=fopen("deneme2.txt","a+");
+
+printf("Ogrenci eklemek istiyor musunuz?\n(Evet: 0) :");
+scanf("%d",&sor);
+if(sor==0){
+    printf("Kac ogrenci eklemek istiyorsunuz? : ");           scanf("%d",&ekle);
+
+for(i=0;i<ekle;i++) {
+        printf("ogrenci adi:");
+        scanf("%s",kisi[topl+1].isim);
+        printf("ogrenci soyadi:");
+        scanf("%s",kisi[topl+1].soyad);
+        printf("ogretim turunu giriniz(1/2):\n");
+        scanf("%d",&tur);
+
+        if(tur==1){
+            strcpy(kisi[topl+1].ogretimtur,"I");
+            strcpy(kisi[topl+1].tmp,"1701");
+        sprintf(dizi,"%03d",num1);
+        strcat(kisi[topl+1].tmp,dizi);
+        strcpy(kisi[topl+1].numara,kisi[topl+1].tmp);
+            strcpy(kisi[topl+1].tmp,"");
+            sprintf(k_gec3,"%03d",kytsirasi);
+            strcat(kisi[topl+1].tmp,k_gec3);
+            strcpy(kisi[topl+1].kayitsira,kisi[topl+1].tmp);
+
+        fprintf(dosya,"%-8s\t %-8s\t %-8s\t %-8s %-8s\n",kisi[topl+1].numara,kisi[topl+1].isim,kisi[topl+1].soyad,kisi[topl+1].kayitsira,kisi[topl+1].ogretimtur);
+        fprintf(ptr,"%-8s\t %-8s\t %-8s\t %-8s %-8s \n",kisi[topl+1].numara,kisi[topl+1].isim,kisi[topl+1].soyad,kisi[topl+1].kayitsira,kisi[topl+1].ogretimtur);
+        fprintf(yeni,"%-8s\t %-8s\t %-8s\t %-8s %-8s\n",kisi[topl+1].numara,kisi[topl+1].isim,kisi[topl+1].soyad,kisi[topl+1].kayitsira,kisi[topl+1].ogretimtur);
+        num1++;  kytsirasi++;   topl++;
+        }
+         else if(tur==2){
+            strcpy(kisi[topl+1].ogretimtur,"II");
+            strcpy(kisi[topl+1].tmp,"1702");
+        sprintf(dizi,"%03d",num2);
+        strcat(kisi[topl+1].tmp,dizi);
+        strcpy(kisi[topl+1].numara,kisi[topl+1].tmp);
+            strcpy(kisi[topl+1].tmp,"");
+            sprintf(k_gec4,"%03d",kytsirasi);
+            strcat(kisi[topl+1].tmp,k_gec4);
+            strcpy(kisi[topl+1].kayitsira,kisi[topl+1].tmp);
+
+            fprintf(dosya,"%-8s\t %-8s\t %-8s\t %-8s %-8s\n",kisi[topl+1].numara,kisi[topl+1].isim,kisi[topl+1].soyad,kisi[topl+1].kayitsira,kisi[topl+1].ogretimtur);
+            fprintf(ptr2,"%-8s\t %-8s\t %-8s\t %-8s %-8s\n",kisi[topl+1].numara,kisi[topl+1].isim,kisi[topl+1].soyad,kisi[topl+1].kayitsira,kisi[topl+1].ogretimtur);
+            fprintf(yeni,"\n%-8s\t %-8s\t %-8s\t %-8s %-8s\n\n",kisi[topl+1].numara,kisi[topl+1].isim,kisi[topl+1].soyad,kisi[topl+1].kayitsira,kisi[topl+1].ogretimtur);
+            num2++;     kytsirasi++;   topl++;
+        }  }
+        }       else {};
+
+fclose(dosya);
+fclose(ptr);
+fclose(ptr2);
+fclose(yeni);
+//sirala
+sirala();
+
+int sn1, sn2,total[100],total2[100];
+printf("\nEn az sinif dagilimi icin sinif sayisini giriniz: ");
+scanf("%d",&sn1);
+printf("sinif kapasitelerini giriniz:\n");
+
+enaz:  for(i=0;i<sn1;i++){
+      scanf("%d",&total[i]);   }
+
+int gecici,totalTop=0;
+
+  for(j=0; j<sn1; j++){
+    for(i=0; i<sn1-1; i++){
+    if(total[i+1]>total[i]){
+            gecici=total[i+1];
+            total[i+1]=total[i];
+            total[i]=gecici;
+          }   } }
+
+  for(i=0;i<sn1;i++) {
+    totalTop=totalTop+total[i];  }
+
+if(bosayi>totalTop && iosayi>totalTop){
+    printf("Kapasite yetersiz.Yeni sinif girmelisiniz.\n");    printf("Kapasiteleri tekrar giriniz:\n");
+    sn1++;
+    goto enaz;
+}
+else {
+    printf("\n1. ogretim-\n ");
+    en_az_dagilim1(bosayi,total,sn1);
+    printf("\n");
+    printf("2. ogretim-\n ");
+    en_az_dagilim2(iosayi,total,sn1);
+}
+printf("\n------------------------------\n");
+
+printf("\nEsit sinif dagilimi icin sinif sayisini giriniz: ");
+scanf("%d",&sn2);
+
+printf("sinif kapasitelerini giriniz: \n");
+
+esit:  for(i=0;i<sn2;i++){
+      scanf("%d",&total2[i]);   }
+
+  int total2Top=0;
+
+  for(i=0;i<sn2;i++) {
+    for(j=0;j<sn2-1;j++) {
+        if(total2[j+1]<total2[j]) {
+            gecici=total2[j+1];
+            total2[j+1]=total2[j];
+            total2[j]=gecici;
+                }    }       }
+
+  for(i=0;i<sn2;i++) {
+    total2Top=total2Top+total2[i];  }
+
+if(bosayi>total2Top && iosayi>total2Top){
+    printf("Kapasite yetersiz.Yeni sinif girmelisiniz.\n");    printf("Kapasiteleri tekrar giriniz:\n");
+    sn2++;
+    goto esit;
+}
+else {
+    printf("\nEsit dagilim:\n");
+    printf("\n1. ogretim-\n");
+    esit_sinif_dagilimi1(bosayi,total2,sn2);
+    printf("\n");
+    printf("2. ogretim-\n");
+    esit_sinif_dagilimi2(iosayi,total2,sn2);
+}
+
+printf("\n");
+printf("\nDersi alan I. ogretim ogrenci sayisi %d\n \nII. ogretim ogrenci sayisi:    %d\n",bosayi,iosayi);
+
+time(&end);
+printf("\nCalisma suresi: %.2lf",difftime(end,start));
+
+return 0;
+}
+///**************************************** S I N I F L A M A *************************************************
+
+///***************************** E N A Z D A G I L I M *********************************
+
+void en_az_dagilim1(int ogrenci,int *total,int q ){
+
+    FILE *enazogrdagilim1=fopen("enazogrdagilim1.txt","w+");
+    FILE *ptr=fopen("1.ogr.txt","r+");
+
+    int i,j,index=0,x=0,snf_adi=1;
+
+    while(ogrenci>=total[x]){
+        fprintf(enazogrdagilim1,"--------------------%d. SINIF----------------------\n",snf_adi);
+
+        for(i=0; i<total[x]; i++){
+          fprintf(enazogrdagilim1,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+i+1].numara2,kisi[index+i+1].isim2,kisi[index+i+1].soyad2,kisi[index+i+1].kayitsira2,kisi[index+i+1].ogretimtur2);
+        }
+   ogrenci=ogrenci-total[x];
+   index=index+total[x];
+   x++;
+   snf_adi++;
+    }
+   int artan=0;
+   if(ogrenci<total[x]){
+    fprintf(enazogrdagilim1,"--------------------%d. SINIF----------------------\n",snf_adi);
+        artan=ogrenci;
+
+    for(i=0;i<ogrenci;i++) {
+          fprintf(enazogrdagilim1,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+i+1].numara2,kisi[index+i+1].isim2,kisi[index+i+1].soyad2,kisi[index+i+1].kayitsira2,kisi[index+i+1].ogretimtur2);
+               }
+    snf_adi++;
+}
+fprintf(enazogrdagilim1,"\nSiniflarin son durumu \n\n");
+
+if(x<q) {
+        for(i=x+1;i<q;i++)
+        total[i]=0;
+}      total[x]=artan;
+
+for(i=0;i<q;i++) {
+    fprintf(enazogrdagilim1,"%d\n",total[i]);
+    printf("-%d-",total[i]);
+}
+
+fclose(enazogrdagilim1);
+fclose(ptr);
+
+}
+
+/// ***************************************************************************
+void en_az_dagilim2(int ogrenci,int *total,int q){
+    FILE *enazogrdagilim2=fopen("enazogrdagilim2.txt","w+");
+    FILE *ptr2=fopen("2.ogr.txt","r+");
+
+   int i,j,index=0,snf_adi=1,x=0;
+
+    while(ogrenci>=total[x]){
+
+       if(strcmp(kisi[index+i+1].isim3,"")!=0 )
+        { fprintf(enazogrdagilim2,"--------------------%d. SINIF----------------------\n",snf_adi); }
+
+        for(i=0; i<total[x]; i++){
+          fprintf(enazogrdagilim2,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+i+1].numara3,kisi[index+i+1].isim3,kisi[index+i+1].soyad3,kisi[index+i+1].kayitsira3,kisi[index+i+1].ogretimtur3);
+        }
+
+   ogrenci=ogrenci-total[x];
+   index=index+total[x];
+   x++;
+   snf_adi++;
+    }
+
+    int artan=0;
+if(ogrenci<total[x]){
+    fprintf(enazogrdagilim2,"--------------------%d. SINIF----------------------\n",snf_adi);
+        artan=ogrenci;
+    for(i=0;i<ogrenci;i++) {
+          fprintf(enazogrdagilim2,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+i+1].numara3,kisi[index+i+1].isim3,kisi[index+i+1].soyad3,kisi[index+i+1].kayitsira3,kisi[index+i+1].ogretimtur3);
+}
+    snf_adi++;
+}
+
+fprintf(enazogrdagilim2,"Siniflarin son durumu \n\n");
+
+if(x<q) {
+        for(i=x+1;i<q;i++)
+        total[i]=0;
+}  total[x]=artan;
+
+for(i=0;i<q;i++) {
+    fprintf(enazogrdagilim2,"%d\n",total[i]);
+    printf("-%d-",total[i]);
+}
+
+fclose(enazogrdagilim2);
+fclose(ptr2);
+}
+
+///********************************** E S i T D A G I L I M *******************************************
+
+void esit_sinif_dagilimi1 (int ogrenci,int *total2, int  sinif_say){
+
+    FILE *esitogrdagilim1=fopen("esitogrdagilim1.txt","w+");
+    FILE *ptr=fopen("1.ogr.txt","r+");
+
+    int gecici,i,j,snf_adi=1,index=0,y=0,sinir=0;
+
+    while((ogrenci/sinif_say)>total2[y])
+{    fprintf(esitogrdagilim1,"--------------------%d. SINIF----------------------\n",snf_adi);
+
+    for(i=0; i<total2[y]; i++) {
+        fprintf(esitogrdagilim1,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+i+1].numara2,kisi[index+i+1].isim2,kisi[index+i+1].soyad2,kisi[index+i+1].kayitsira2,kisi[index+i+1].ogretimtur2);
+        sinir++;
+    }
+    fprintf(esitogrdagilim1,"\n-------------------%d-----------------------\n",sinir);
+    printf("-%d-",sinir);
+
+    index+=total2[y];
+    ogrenci-=total2[y];
+    y++;
+    sinif_say--;
+    snf_adi++;
+    sinir=0;
+   // fprintf(esitogrdagilim1,"\n----------------------------------\n");
+}
+
+while((ogrenci/sinif_say)<=total2[y])
+    {   fprintf(esitogrdagilim1,"--------------------%d. SINIF----------------------\n",snf_adi);
+
+        for(j=0; j<(ogrenci/sinif_say); j++)
+            { fprintf(esitogrdagilim1,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+j+1].numara2,kisi[index+j+1].isim2,kisi[index+j+1].soyad2,kisi[index+j+1].kayitsira2,kisi[index+j+1].ogretimtur2);
+                sinir++;
+            }
+            fprintf(esitogrdagilim1,"\n---------------%d---------------------\n ",sinir);
+            printf("-%d-",sinir);
+
+     index+=(ogrenci/sinif_say);
+     ogrenci-=(ogrenci/sinif_say);
+
+     if(ogrenci==0) {  goto atla;  }
+        y++;
+        sinif_say--;
+        snf_adi++;
+        sinir=0;
+    //fprintf(esitogrdagilim1,"------------------------------\n");
+    }
+
+atla:  fprintf(esitogrdagilim1,"\n");
+fclose(esitogrdagilim1);
+fclose(ptr);
+
+}
+/// **********************************************************************
+
+void esit_sinif_dagilimi2 (int ogrenci,int *total2, int sinif_say){
+
+    FILE *esitogrdagilim2=fopen("esitogrdagilim2.txt","w+");
+    FILE *ptr2=fopen("2.ogr.txt","r+");
+
+    int gecici,i,j,snf_adi=1,index=0,y=0,sinir=0;
+
+    while((ogrenci/sinif_say)>total2[y])
+{    fprintf(esitogrdagilim2,"--------------------%d. SINIF----------------------\n",snf_adi);
+
+    for(i=0; i<total2[y]; i++) {
+        fprintf(esitogrdagilim2,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+i+1].numara3,kisi[index+i+1].isim3,kisi[index+i+1].soyad3,kisi[index+i+1].kayitsira3,kisi[index+i+1].ogretimtur3);
+        sinir++;
+    }
+    fprintf(esitogrdagilim2,"\n-------------------%d-----------------------\n",sinir);
+    printf("-%d-",sinir);
+
+    index+=total2[y];
+    ogrenci-=total2[y];
+    y++;
+    sinif_say--;
+    snf_adi++;
+    sinir=0;
+   // fprintf(esitogrdagilim2,"\n----------------------------------\n");
+}
+while((ogrenci/sinif_say)<=total2[y])
+    {   fprintf(esitogrdagilim2,"--------------------%d. SINIF----------------------\n",snf_adi);
+
+        for(j=0; j<(ogrenci/sinif_say); j++)
+            { fprintf(esitogrdagilim2,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",kisi[index+j+1].numara3,kisi[index+j+1].isim3,kisi[index+j+1].soyad3,kisi[index+j+1].kayitsira3,kisi[index+j+1].ogretimtur3);
+                sinir++;
+            }
+            fprintf(esitogrdagilim2,"\n---------------%d--------------------- \n",sinir);
+            printf("-%d-",sinir);
+
+     index+=(ogrenci/sinif_say);
+     ogrenci-=(ogrenci/sinif_say);
+
+     if(ogrenci==0) {  goto atla2; }
+        y++;
+        sinif_say--;
+        snf_adi++;
+        sinir=0;
+        //fprintf(esitogrdagilim2,"----------------------------\n");
+    }
+atla2:  fprintf(esitogrdagilim2,"\n");
+
+fclose(esitogrdagilim2);
+fclose(ptr2);
+}
+///************************************** S I R A L A M A **********************************************
+void sirala(){
+FILE *yeni=fopen("deneme2.txt","r");
+FILE *ptr=fopen("1.ogr.txt","w+");
+FILE *ptr2=fopen("2.ogr.txt","w+");
+int i,j ;
+     int h=0;
+     if(yeni!=NULL){
+        for(i=0;i=!feof(yeni);i++){
+    fscanf(yeni,"%s %s %s %s %s",gec[h].g_numara,gec[h].g_isim,gec[h].g_soyad,gec[h].g_kayitsira,gec[h].g_ogretimtur);
+    h++;        }           }
+
+    fclose(yeni);
+    yeni=fopen("deneme2.txt","w");
+
+    for(i=0; i<h-1; i++) {
+    for(j=0; j<h-i-1; j++){
+    if(atoi(gec[j].g_numara)>atoi(gec[j+1].g_numara)){
+     g_temp=gec[j];
+     gec[j]=gec[j+1];
+     gec[j+1]=g_temp;
+   }
+    } }
+
+    for(i=0; i<h; i++){
+      fprintf(yeni,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",gec[i].g_numara,gec[i].g_isim,gec[i].g_soyad,gec[i].g_kayitsira,gec[i].g_ogretimtur);
+    }
+
+    for(j=0; j<h; j++){
+    if(strcmp(gec[j].g_ogretimtur,"I")==0){
+     fprintf(ptr,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",gec[j].g_numara,gec[j].g_isim,gec[j].g_soyad,gec[j].g_kayitsira,gec[j].g_ogretimtur);
+           }            }
+
+    for(j=0; j<h; j++){
+        if(strcmp(gec[j].g_ogretimtur,"II")==0){
+        fprintf(ptr2,"%-8s \t%-8s \t%-8s \t%-8s \t%-8s\n",gec[j].g_numara,gec[j].g_isim,gec[j].g_soyad,gec[j].g_kayitsira,gec[j].g_ogretimtur);
+           }            }
+
+fclose(yeni);
+fclose(ptr);
+fclose(ptr2);
+ptr=fopen("1.ogr.txt","r");
+ptr2=fopen("2.ogr.txt","r");
+int bo=0;
+int io=0;
+
+for(i=0;i=!feof(ptr);i++){
+        if(strcmp(gec[bo].g_numara,"")!=0 && strcmp(gec[bo].g_isim,"")!=0) {
+       fscanf(ptr,"%s %s %s %s %s",kisi[bo].numara2,kisi[bo].isim2,kisi[bo].soyad2,kisi[bo].kayitsira2,kisi[bo].ogretimtur2);
+    }
+       bo++;     }
+
+for(i=0;i=!feof(ptr2);i++){
+        if(strcmp(gec[io].g_numara,"")!=0 && strcmp(gec[io].g_isim,"")!=0) {
+       fscanf(ptr2,"%s %s %s %s %s",kisi[io].numara3,kisi[io].isim3,kisi[io].soyad3,kisi[io].kayitsira3,kisi[io].ogretimtur3);
+    }
+       io++;     }
+
+fclose(ptr);
+fclose(ptr2);
+
+ptr=fopen("1.ogr.txt","w");
+ptr2=fopen("2.ogr.txt","w");
+
+for(i=0; i<bo-1; i++) {
+    fprintf(ptr,"%-7s\t %-7s\t %-7s\t %-7s\t %-7s\t\n",kisi[i].numara2,kisi[i].isim2,kisi[i].soyad2,kisi[i].kayitsira2,kisi[i].ogretimtur2);
+}
+for(i=0; i<io-1; i++){
+    fprintf(ptr2,"%-7s\t %-7s\t %-7s\t %-7s\t %-7s\t\n",kisi[i].numara3,kisi[i].isim3,kisi[i].soyad3,kisi[i].kayitsira3,kisi[i].ogretimtur3);
+}
+fclose(ptr);
+fclose(ptr2);
+}
+
+
+
+

@@ -1,0 +1,204 @@
+1.GÝRÝÞ
+Projenin genel olarak konusu, verilen txt dosyasýnýn üzerinde istenilen bir kaç dosyalama 
+iþleminin uygulanmasýný saðlamaktýr.
+Hazýrlanan projenin amacý, verilen txt dosyasýnda yapýlmasý istenilen dosyalama iþlemlerine 
+göre çeþitli dosya oluþturma iþlemi ile yeni dosyalar oluþturmak, verilen veya oluþturulan
+dosyalar üzerinde ekleme, çýkarma, güncelleme ya da istenilen iþlemler ile ilgili deðiþiklik
+yapýlmasýný  saðlamaktýr. 
+
+2.TEMEL BÝLGÝLER
+Proje C dilinde yazýldý ve CodeBloks'ta hazýrlandý. Dosya oluþturma kýsmý Notepad'de
+tamamlandý.
+.
+
+3.DÝÐER BÖLÜMLER
+Projede genel olarak, bir derse kayýt yaptýran öðrenciler üzerinde sýnýf planlama 
+sistemi geliþtirilmesi istenmektedir. Proje ile üzerinde dosyalama iþlemlerinin gerçekleþtirilmesi
+istenen dosya verilmiþtir. Dosyada öðrenci numarasý,ad, soyad,öðretim türü ve kayýt sýrasý gibi
+derse kayýtlý öðrenciler ile ilgili bilgiler yer almaktadýr.
+
+3.1 Kayýt Silme
+Ýlk olarak istenen iþlem, verilen bu dosya içinde bulunan öðrencilerden derse birden fazla kayýt
+yaptýrýlanlarý bulmak ve bu öðrencilerin bilgilerini dosyadan çýkarmayý saðlamaktýr. Projemizde 
+ilk olarak,  verilen dosyayý taradýktan sonra bulunan bu öðrencilerin fazladan ad,soyad vb. 
+bilgilerinin silinmesini saðladýk. Daha sonra oluþturduðumuz isim_alma () fonksiyonu ile
+dosyadan aldýðýmýz öðrenci numarasý,ad,soyad vb. bilgileri öðretim türlerine göre ayýrýp 
+baþka struct yapýlarýna atamasýný yaptýk. Ayrýca bu fonksiyon ile  ilerideki dosyalama iþleminde 
+kullanýlabilecek olabileceði için dosyada kayýt silme iþlemi sonrasýnda kalan öðrenci sayýsýný tespit 
+ettik.
+
+3.2 Kayýt Sýrasý Güncelleme
+Ýkinci olarak istenen iþlem, tekrarlanan kayýtlar silindikten sonra kayýt sýra bilgilerinin 
+güncellenmesini saðlamaktýr. Projemizde kayýt silinmesi iþlemi sýrasýnda kaydý fazladan bulunan
+öðrenciler ile ilgili bilgiler silindiðinde kayýt sýralarýný da deðiþtirmiþ olduk.
+
+3.3 Numarasý Olmayan Öðrencilere Numara Atama
+Üçüncü olarak istenen iþlem, verilen dosya içerisinde üniversiteye yeni kayýt yaptýran öðrecilerin
+numarasý bulunmadýðýndan bu öðrencilere numara atanmasýný saðlamaktýr. Projemizde öncelikle,
+kayýt silme iþlemini yaparken baþka struct yapýlarýný atadýðýmýz bilgiler için ayrý ayrý, öðretim 
+türlerine göre 1.ogr ve 2.ogr adýnda dosyalar oluþturduk. Bu dosyalar içine öðrenci bilgilerini
+ atarken ayný zamanda, numarasý olmayan öðrencilere verilen kayýt sýralarýný dikkate alarak
+yeni numaralar atanmasýný saðladýk. Bu bilgileri atama yaparken ayný zamanda dosyalara 
+kayýt sýrasýna göre sýralý bir þekilde yazdýrdýk. Ve atamayý yaparken ileride kullanýlabilecek
+olan birinci ve ikinci öðretim öðrenci sayýlarýný tespit ettik.
+
+3.4 Yeni Kayýt Ekleme
+Projede bonus olarak istenen kýsým, yeni öðrenci kayýt giriþinin yapýlabilmesini saðlamaktýr.
+Projemizde numara atama iþleminden hemen sonra, yeni öðrenci kayýt giriþinin yapýlmasýný
+saðladýk. Yeni giriþi saðlanan öðrencinin öðretim türüne göre ise daha önceden oluþturduðumuz
+1.ogr ve 2.ogr isimli dosyalara yeni öðrenci ile ilgili bilgileri atadýk. Bu atamayý yaparken ayný 
+zamanda daha önceden bulduðumuz ögrenci numarasý sayýsýna göre yeni 
+öðrencinin numarasýný oluþturmuþ olduk. Yeni öðrencinin kayýt sýrasýný ise daha önceden 
+bulduðumuz kayýt sýrasýna göre düzenledik. Ve bu sýralý olan iki dosyayý yeni bir dosyaya önce
+birinci sonra da ikinci öðretim olarak, öðrenci numarasý sýrasýna göre baþka bir dosyaya yazdýrdýk.
+
+3.5 Numaraya Göre Sýralama
+Dördüncü olarak istenen iþlem, isme göre sýralý verilen dosyanýn öðrenci numaralarýna göre
+sýralanmasýný saðlamaktýr.  Projemizde kayýt ekleme kýsmýndan sonra oluþturduðumuz sýrala()
+fonksiyonu ile dosyayý öðrenci numarasýna göre sýralamýþ olduk.
+
+3.6 Sýnýflara Öðrenci Atama
+Beþinci olarak istenen iþlem, kullanýcýdan alýnan sýnýf sayýsý ve kapasitelerine göre listedeki 
+öðrencilerin daðýtýlmasýný saðlamaktýr. 
+Projemizde ilk sýnýf atamasý iþlemi olarak en az sýnýf daðýlýmýna göre iþlemler yapýlmasýný
+saðladýk. Sýnýflara en az sýnýf daðýlýmý öðrenci atamasý iþlemini gerçekleþtirmeden önce ilk 
+olarak, ileride daðýtým yapýlacak olan sýnýf sayýsý ve bu sýnýflarýn kapasitelerinin kullanýcýdan 
+alýnmasýný saðladýk. Alýnan sýnýf kapasitelerinin bulunduðu diziyi, en az sýnýf daðýlýmý iþlemini 
+uygulayabilmek için büyükten küçüðe doðru sýraladýk. Sonrasýnda sýnýf kapasitelerinin
+daha önceki iþlemlerde  bulduðumuz öðrenci sayýlarýndan fazla veya az olup olmadýðýný 
+anlayabilmek için öncelikle sýnýf kapasitelerini topladýk. Ve bu toplam ile öðrenci sayýlarýný 
+karþýlaþtýrdýk. Eðer kapasite toplamý, öðrenci sayýlarýndan küçük ise yeni kapasite giriþinin yapýlmasýný 
+istedik.  Ve kapasite toplamý, öðrenci sayýsýndan büyük veya eþit olana kadar kapasite isteme
+iþlemini tekrarlanmadýk. Kapasite toplamý, öðrenci sayýsýndan büyük veya  eþit 
+olduðunda ise  birinci ve ikinci öðretim öðrencileri için ayrý olarak oluþturduðumuz 
+en_az_dagilim1() ve en_az_dagilim2() fonksiyonlarýna geçiþ saðladýk. Bu iki fonksiyonda ise 
+öncelikle en az sýnýf daðýlýmý iþlemini saðlayabilmek için fonksiyona büyükten 
+küçüðe sýralý halde gönderdiðimiz kapasite dizisinin elemanlarý ile bir diðer fonksiyona 
+gönderdiðimiz öðrenci sayýsý ile karþýlaþtýrma yaptýk. Öðrenci sayýsý, kapasiteden büyük 
+olduðunda kapasite boyutu kadar öðrenciyi bu sýnýfa doldurduk. Ve öðrenci sayýsýný dolan sýnýf
+kapasitesi kadar azalttýk. Daha sonrasýnda bu iþlemi kapasite dizisinin diðer elemanlarý ile 
+tekrarladýk. Öðrenci sayýsý sýnýf kapasitesinden küçük olduðu durumda ise, kalan öðrenci sayýsý kadarý ile
+bu sýnýfa atadýk. Ve bu sýnýflara ayýrma iþlemi için oluþturduðumuz fonksiyonlara 
+göre enazogrdagilimi1 ve enazogrdagilimi2 isimli dosyalar oluþturup ayrýlan öðrencileri bu 
+dosyalara yazdýrdýk. 
+
+Ýkinci sýnýf atamasý iþlemi olarak eþit sýnýf daðýlýmýna göre iþlemler yapýlmasýný saðladýk. Sýnýflara
+eþit sýnýf daðýlýmý öðrenci atamasýný gerçekleþtirmeden önce ilk olarak, ileride daðýtým iþlemi
+yapýlacak olan sýnýf sayýsý ve kapasitelerinin kullanýcýdan alýnmasýný saðladýk. Aldýðýmýz bu sýnýf 
+kapasitelerinin bulunduðu diziyi, eþit sýnýf daðýlýmý iþlemini uygulayabilmek için küçükten büyüðe
+doðru sýraladýk. Sonrasýnda sýnýf kapasitelerinin daha önceki iþlemlerde bulduðumuz öðrenci sayýlarýndan
+fazla veya az olup olmadýðýný anlayabilmek için öncelikle sýnýf kapasitelerini topladýk. Ve bu 
+toplam ile sýnýf kapasitelerini karþýlaþtýrdýk. Eðer kapasite toplamý, öðrenci sayýlarýndan küçük 
+ise yeni kapasite giriþinin yapýlmasýný istedik. Ve kapasite toplamý, öðrenci sayýsýndan
+büyük veya eþit olana kadar kapasite isteme iþlemini tekrarladýk.Kapasite toplamý, öðrenci sayýsýndan
+büyük veya eþit olduðunda ise birinci ve ikinci öðretim öðrencilerini için ayrý olarak oluþturduðumuz
+ esit_sinif_dagilimi1() ve esit_sinif_dagilimi2() fonksiyonlarýna geçiþ saðladýk.
+ Bu fonksiyonlarda ise öncelikle eþit sýnýf daðýlýmý iþlemini saðlayabilmek için fonksiyona
+küçükten büyüðe sýralý halde gönderdiðimiz kapasite dizisinin elemanlarý ile bir diðer fonksiyona
+gönderdiðimiz öðrenci sayýsý ve sýnýf sayýsýnýn bölümünün karþýlaþtýrmasýný yaptýk. Öðrenci sayýsý
+ile sýnýf sayýsý bölümü,kapasiteden büyük olduðunda öncelikli olarak bu sýnýfý kapasitesi kadar
+öðrencini ile dolmasýný saðladýk. Öðrenci sayýsýný dolan sýnýf kapasitesi kadar azalttýk.
+Daha sonrasýnda bu iþlemi kalan öðrenci sayýsý ve kalan diðer sýnýf sayýsýna göre kapasite dizisinin
+diðer elemanlarý ile karþýlaþtýrmasýný yaptýk. Öðrenci sayýsý ile sýnýf sayýsý bölümü, sýnýf
+kapasitesinden küçük olduðunda ise, bu bölüm sayýsý kadar kalan öðrenciyi bu sýnýf ya da sýnýflara
+ eþit sayýda doldurmuþ olduk. Eðer en baþta öðrenci sayýsý ile sýnýf sayýsý bölümü, kapasite dizisinin ilk 
+elemanýndan da küçük ise bütün sýnýflara bu bölüm kadar öðrenciyi doldurmayý saðladýk. Ve bu sýnýflara
+ayýrma iþlemi için oluþturduðumuz fonksiyonlara göre esitogrdagilimi1 ve esiogrdagilimi2 isimli
+dosyalar oluþturup ayrýlan öðrencileri bu dosyalara yazdýrdýk.
+
+Her bir öðretim türü için yapýlan sýnýf daðýtýmýna uygun olarak dosyalar açýlýp, bunlara ayrýlan öðrencilerin
+daðýtýlýp yazdýrýlmasýný saðladýk. Ve son olarak bu derse kayýtlý birinci ve ikinci öðretim öðrencilerinin
+sayýsý ile sýnýflara daðýtým iþlemi sonuçlarýný ekrana yazdýrdýk.
+
+4.Sonuçlar
+Çalýþmamýzda genel olarak dosyalama iþlemleri ve algoritma mantýðý kullanýlarak bir uygulama
+ yapýlmasý istenmektedir. Bu proje ile dosyalar üzerindeki kayýtlar için ekleme, çýkarma,
+ güncelleme gibi temel dosya iþlemlerinin uygulanmasý gerekmektedir. 
+Projede ilk olarak istenen tekrarlanan kayýtlarýn silinmesi iþlemini sorunsuz çalýþtýrdýk.
+Ýkinci olarak yeni kayýt yaptýran öðrencilere yeni öðrenci numarasý atanmasýný iþlemini de
+sorunsuz olarak çalýþtýrdýk.
+Projede bonus kýsým olarak verilen yeni kayýt alma kýsmýnda ise alýnan yeni kayýtlara numara
+atanmasý kýsmýnda hiçbir sorun yaþamadýk. Fakat alýnan bu kayýtlar için kayýt sýrasýnýn güncellenmesi
+kýsmýnda bir kaç sorun yaþadýk. Kayýtlarý aldýktan sonra kodun tekrar derlenmesi ile bu yeni 
+öðrencilerin de kayýt sýrasýný düzgün atama yapildik.
+Son olarak istenen sýnýflara öðrenci atama iþleminde her bir öðretim türü için ayrý dosyalar 
+oluþturup bunlara öðrenci bilgilerini yazdýrmasýný yapabildik. Fakat her bir sýnýf daðýlýmýnda 
+ayrýlan ve daðýtýlmasý yapýlmasý istenen sýnýflar için yeni dosyalar oluþturmayý baþaramadýk. 
+Bunun yerine her bir sýnýf daðýlýmý sonucunu öðretim türüne göre ayrý olarak tek bir dosya 
+içine yazdýrabildik. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

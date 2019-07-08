@@ -1,0 +1,6 @@
+##################################################################################
+1. Siniftaki Ogrenciler
+        1702001          Joseph            Hart              25              II
+        1702002           Chloe           James              26              II
+        1702003             Max           Brown              27              II
+        1702004          Austin           White              28              II

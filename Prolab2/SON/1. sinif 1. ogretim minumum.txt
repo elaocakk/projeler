@@ -1,0 +1,17 @@
+##################################################################################
+1. Siniftaki Ogrenciler
+        1401001         Jasmine         McGrath               0               I
+        1502001       Alexandra            Carr               0               I
+        1701001            John           Grant               1               I
+        1701002            Lisa          Davies               2               I
+        1701003         Anthony            Dowd               3               I
+        1701004           Blake            Gill               4               I
+        1701005         Lillian          Murray               5               I
+        1701006            Sean       Mackenzie               6               I
+        1701007             Sue        Buckland               7               I
+        1701008        Felicity        Ferguson               8               I
+        1701009        Jennifer          Powell               9               I
+        1701010          Tracey         Chapman              10               I
+        1701011           Dylan         Burgess              11               I
+        1701012         Anthony           Paige              12               I
+        1701013           Keith         Lambert              13               I
