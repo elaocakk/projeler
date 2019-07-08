@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1511286339 source:c:\users\ela&elif\desktop\prolab\prolab3\deneme_3\main.c
+	<time.h>
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<process.h>
+
