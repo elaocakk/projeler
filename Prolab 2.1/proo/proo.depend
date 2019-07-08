@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1520366266 source:c:\users\ela&elif\desktop\prolab 2\proo\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<limits.h>
+

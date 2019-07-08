@@ -1,0 +1,66 @@
+Baslangic sehri: 41
+ Yuzde elli kar problemi 
+Sehir: 54 
+Lat: 40.694000- Long: 30.435800  
+Gidilen mesafe: 49.924103 
+---------------------------------- 
+Sehir: 81 
+Lat: 40.843800- Long: 31.156500  
+Gidilen mesafe: 62.936748 
+---------------------------------- 
+Sehir: 67 
+Lat: 41.456400- Long: 31.798700  
+Gidilen mesafe: 86.782706 
+---------------------------------- 
+Yuzde elli kar problemi 
+Sehir: 54 
+Lat: 40.694000- Long: 30.435800  
+Gidilen mesafe: 49.924103 
+---------------------------------- 
+Sehir: 81 
+Lat: 40.843800- Long: 31.156500  
+Gidilen mesafe: 62.936748 
+---------------------------------- 
+Sehir: 67 
+Lat: 41.456400- Long: 31.798700  
+Gidilen mesafe: 86.782706 
+---------------------------------- 
+Yuzde elli kar problemi 
+Sehir: 54 
+Lat: 40.694000- Long: 30.435800  
+Gidilen mesafe: 49.924103 
+---------------------------------- 
+Sehir: 81 
+Lat: 40.843800- Long: 31.156500  
+Gidilen mesafe: 62.936748 
+---------------------------------- 
+Sehir: 67 
+Lat: 41.456400- Long: 31.798700  
+Gidilen mesafe: 86.782706 
+---------------------------------- 
+Yuzde elli kar problemi 
+Sehir: 54 
+Lat: 40.694000- Long: 30.435800  
+Gidilen mesafe: 49.924103 
+---------------------------------- 
+Sehir: 81 
+Lat: 40.843800- Long: 31.156500  
+Gidilen mesafe: 62.936748 
+---------------------------------- 
+Sehir: 67 
+Lat: 41.456400- Long: 31.798700  
+Gidilen mesafe: 86.782706 
+---------------------------------- 
+Yuzde elli kar problemi 
+Sehir: 54 
+Lat: 40.694000- Long: 30.435800  
+Gidilen mesafe: 49.924103 
+---------------------------------- 
+Sehir: 81 
+Lat: 40.843800- Long: 31.156500  
+Gidilen mesafe: 62.936748 
+---------------------------------- 
+Sehir: 67 
+Lat: 41.456400- Long: 31.798700  
+Gidilen mesafe: 86.782706 
+---------------------------------- 

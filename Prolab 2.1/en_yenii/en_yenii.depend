@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1520458855 source:c:\users\ela&elif\desktop\prolab 2\en_yenii\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<string.h>
+	<time.h>
+
+1520933279 source:c:\users\ela&elif\desktop\prolab 2\prolab 1\en_yenii\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<string.h>
+	<time.h>
+

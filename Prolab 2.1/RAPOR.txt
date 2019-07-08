@@ -1,0 +1,86 @@
+///////////****************************************************
+ÖZET
+Bize verilen proje kapsamýnda zeplin aracý ile yapýlacabilecek olan þehirlere gezi iþlemini en kýsa yol algoritmalarýndan herhangi birini kullanarak problemi çözmemiz istenmiþtir. Projede ilk olarak, projeyi gerçekleþtirmemiz için verilen içinde sehirlere ait bilgilerin olduðu dosyalardan okuma yaptýk. Sonra zeplin ile kalkýþ ve de iniþ yapýlmasý istenen þehirlerin plakalarýný kullanýcýdan  istedik. Sonrasýnda ise çözülmesi gerekli olan iki problemlerden hangisinin çözümünün bulunmasýna dair kullanýcýya bir seçim sunduk. Seçilen probleme göre çözümünü ekrana yazdýrdýk. Bu çözümü yaparken de en kýsa yol algoritmalarýndan olan Dijkstra algoritmasýný kullandýk.
+
+/////////////////////*****************************************
+1.GÝRÝÞ
+Projenin genel olarak konusu, zeplin aracýnýn en düþük maliyet ve en yüksek karla ulaþýmýný saðlamak için en kýsa yol algoritmasýný kullanmaktýr.
+
+Projenin amacý ise veri yapýlarý ve veri modellerini anlaþýlmasý, graf yapýsýný kullanýlmasýný saðlayabilmektir.
+
+(burada belki dijkstra hakkýnda bilgi verilebilir biraz)
+//////////////////////////////////******************************
+2.Temel Bilgiler 
+Proje C dilinde yazýldý ve CodeBlocks'ta hazýrlandý.Dosya oluþturma kýsmý Notepad'de tamamlandý.
+Code::Blocks, özgür açýk kaynak kodlu bir C++ tümleþik geliþtirme ortamýdýr. wxWidgets tabanlý tamamen özelleþtirilebilir arabirimiyle, GNU/Linux, Microsoft Windows, MacOS platformlarýnda sorunsuzca kullanýlabilmektedir.
+Notepadd++, Windows iþletim sistemi içerisine gömülü olarak gelen Notepad yazýlýmýnýn yerine kullanýlmak üzere C++ ile saf Win32 API ve STL ile geliþtirilmiþ GPL ile daðýtýlan açýk kodlu bir kaynak kod düzenleyicisidir.
+
+
+///////**************************
+
+3. Diðer Bölümler
+
+3.1 Þehir bilgilerini edinme
+Projemizde ilk olarak proje ile birlikte verilen þehirlere ait lat,long,plaka kodu ve rakým bilgilerini içeren ve her þehrin komþu þehirlerinin plaka kodlarýný içeren iki dosyayý okutup her þehre ait bu özelliklerin bir struct yapýsýna atamasýný yaptýk. 
+
+3.2 Baþlangýç ve bitiþ þehri alma
+Zeplin aracýnýn yolculuk yapmaya baþlayacaðý baþlangýç ve bitiþ þehrini kullanýcýdan istedik. Doðru bir plaka giriþinin yapýlabilmesini de kontrol ettirdik.
+Sonrasýnda her þehrin gidilebilecek olan komþu þehirleri arasýndaki lat ve long farklarýný kullanarak distance dediðimiz deðeri Haversine formülü ile hesapladýk. Bunu yaparken ayný zamanda her þehir ile komuþu þehri arasýndaki  rakým farkýný da bularak iki þehir arasýnda zeplin ile yolculuk yapýlýp yapýlmayacaðýný belirleyen eðim açýlarýný da hesaplaýk ve bunlarý da yine bir struct yapýsý ile tuttuk. Bu iþlemlerden önce aldýðýmýz baþlangýç þehrine  ise eðim açýsýný hesaplarken, kalkýþta zeplinin 50 metre yükselmesi gerektiði için komþu þehirleri arasýnda hesapladýðýmýz rakým farkýna 50 daha ekleme yaptýk.
+
+3.3 Problemleri çözme
+Sonrasýnda kullanýcýdan çözülmesini istediði problemi seçmesini istedik. Seçilen probleme göre her probleme ait olan yazmýþ olduðumuz fonksiyonlara geçiþ yaptýk.
+
+3.3.1 Sabit ücret problemi fonksiyonu
+Kullanýcýnýn seçtiði problem sabit ücret alýndýðýnda kaç yolcu ile sefer düzenlenirse maksimum kar elde edilir olduðunda SabitUcretProblemi() isimli fonksiyona geçiþ yaptýk. Buraya önceden kullanýcýdan aldýðýmýz baþlangýç ve bitiþ þehirlerinin plakalarýný gönderdik. Problemin çözümünü dosyaya kaydedebilmek için fonksiyonda ilk olarak dosya açma iþlemini yaptýk. Sonrasýnda yolcu sayýsýný 5 ile 50 arasýnda tutarak, her yolcu sayýsýna göre bulduðumuz eðimi þehirler arasýnda yol bulabilmek amacýyla oluþturduðumuz rotaHesaplaniyor() isimli fonksiyona baþlangýç ve bitiþ þehir plaklarý ile gönderdik. Bu fonksiyondan her yolcu sayýsýna göre bulmuþ olduðumuz gidilen yol deðerlerinin toplamýný bulduk. Bu toplama göre zeplinin harcadýðý maliyeti ve de yolcu sayýsýna göre sabit ücret ile yolcu maliyetini hesapladýk. Bulduðumuz bu deðerlere göre her yolcu sayýsý için bir kar oraný hesapladýk ve bu oranlarý ise bir struct yapýsýnda tuttuk.
+Hesaplanan bu kar oranlarýný büyükten küçüðe doðru sýralayýp ekrana maksimum kar yapýldýðýndaki yolcu sayýsýný ve bu yolcu sayýsýna göre oluþan eðim ile gidilen þehir ve bilgilerini yazdýrdýk. Sonrasýnda sýralý bir þekilde diðer kar oranlarýna göre de gidilen þehir ve bilgilerini ekrana yazdýrdýk. En sonunda ise fonksiyonun baþýnda açmýþ olduðumuz dosyayý kapattýk.
+
+
+3.3.2 Yüzde elli kar problemi fonksiyonu
+Kullanýcýnýn seçtiði problem bir yolcudan kaç TL alýnýrsa yüzde 50 ara ulaþýlýr 
+problemi olduðunda YuzdeElliKarProblemi() isimli fonksiyona geçiþ yaptýk. Buraya önceden aldýðýmýz baþlangýç ve bitiþ þehirlerinin plakalarýný gönderdik. Çözümü kaydedebilmek için fonksiyonun baþýnda ilk olarak dosya açma iþlemini yaptýk. Sonrasýnda 10,20,30,40 ve 50 sayýdaki yolcu saylarýna göre her yolcu sayýsýna göre bulduðumuz eðimi önceden kullanýcýdan almýþ olduðumuz baþlangýç ve bitiþ þehrinin plakalalarýný rotaHesaplaniyor() isimli fonksiyona gönderdik. Her yolcu sayýsýna göre gidilen yollarýn toplamýný bulduk. Bu toplam ile zeplinin harcadýðý maliyeti hesapladýk. Bu maliyet ile %50 oranýnda bir kar yapabilmek için her yolcu baþýna alýnmasý gereken yolcu maliyetini hesapladýk. Her yolcu sayýsýna göre (10,20,30,40 ve 50) bulduðumuz bu maliyetleri ekrana yazdýrdýk. En sonunda ise fonksiyonun baþýnda açtýðýmýz dosyayý kapattýk.
+
+4. rotaHesaplaniyor() fonksiyonu 
+Kullanýcýdan aldýðýmýz baþlangýç ve bitiþ þehirleri arasýndaki yollarý hesaplamak için SabitUcretProblemi() ve YuzdeElliKarProblemi() isimli fonksiyonlarda kullandýðýmýz fonksiyondur. 
+Bu fonksiyonun baþýnda yine gidilen þehrileri ve bilgilerini kaydedebilmek için dosya açma iþlemini yaptýk. Sonrasýnda fonksiyona gönderdiðimiz baþlangýç þehrinin komþularýný, yine fonksiyona gönderdiðimiz eðim ile kontrol ettirdik.
+ Komþu þehri ile arasýndaki eðim, zeplin aracýnýn eðiminden büyük veya eþit olduðu durumda hangi eðimi uygun olan þehir ile arasýndaki uzaklýk en kýsa ise bir sonraki þehri o þehir yaptýk. Bunu yaparken bu gidilecek olan þehri ise d isimli diziye, bu iki þehir arasýndaki yolu path isimli diziye attýk. Ayný zamanda ise push() fonksiyonuna gidilecek olan þehri atýp linked yapýsý ile graf oluþturmaya çalýþtýk. Sonrasýnda bu þehir kullanýcýdan önceden aldýðýmýz bitiþ þehrine eþitse programý sonlandýrdýk deðilse bu þehri baþlangýç þehri olarak alýp tekrar rotaHesaplaniyor() fonksiyonuna gönderdik.
+Eðer eðim uygun deðilse veya grafControl() isimli fonksiyonla yaptýðýmýz kontrol  sonrasýnda (yol bulma yaparken gittiðimiz þehirleri attýðýmýz linked list üzerinde o þehrin olup olmadýðýný sorgulama iþlemi) o þehir varsa eðer bu þehre tekrar gidilmesini engellemek için bu þehir ile öncesinde bu þehre gelinmesini saðlayan þehri egimSifirla() isimli fonksiyona gönderdik. Burada bu iki þehir arasýnda tekrar tekrar gidip gelmeyi engellemek için her iki þehir arasýndaki eðim deðerini sýfýra eþitledik. Sonrasýnda baþlangýç þehrinin baþka bir komþusunu kontrol ettirmek için döngünün tekrar baþýna gönderip diðer komþularý arasýnda bir kontrol iþlemi gerçekleþtirdik. 
+
+///////////**********************************
+4. Akýþ þemasý
+
+///////////////***************************
+5. Sonuçlar
+Projemizde genel olarak bizden en kýsa yol algoritmasý ve graf yapýsýný kullanmamýz istendi.
+Projemizi oluþturuken en baþta þehirler ile ilgili bilgilerin ve komþularýnýn bulunduðu dosyalarý okurken ve de bu bilgileri struct yapýsýna atama yapmayý sorunsuz yaptýk.
+Zeplin ile ilgili çözülmesi gereken iki adet problem için ayrý ayrý fonksiyonlarý doðru bir þekilde oluþturduk fakat SabitUcretProblemi() fonksiyonunda her yolcu sayýsý için gidilen yollarý ekrana yazdýrdýrýken bir sorun yaþadýk.
+Ayrýca rotaHesaplaniyor() fonksiyonunda bitiþ þehrine gelindiðinde fonksiyonu durdurmayý ve de bazý þehirler için önceden gidilmiþ olan þehirlere tekrar gidilmemesini engellemeye baþaramadýk.
+
+
+////////////////////****************************
+6. Kaynakça
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

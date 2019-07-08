@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1519472284 source:c:\users\ela&elif\desktop\okul\2. sinif 2. dÖnem\prolab 2\prolab 2-1\prolab_örn\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
+1519589149 source:c:\users\ela&elif\desktop\prolab 2\prolab 2-1\prolab_örn\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+
