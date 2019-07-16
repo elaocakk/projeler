@@ -1,0 +1,532 @@
+
+#include "inc/lm4f120h5qr.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#ifndef LCD_H_
+#define LCD_H_
+
+#define LCDPORT                  GPIO_PORTB_BASE
+#define LCDPORTENABLE    SYSCTL_PERIPH_GPIOB
+#define RS                               GPIO_PIN_0
+#define E                                GPIO_PIN_1
+#define D4                               GPIO_PIN_4
+#define D5                               GPIO_PIN_5
+#define D6                               GPIO_PIN_6
+#define D7                               GPIO_PIN_7
+
+void Lcd_Komut(unsigned char);  //Lcd ye komut göndermeye yarar
+void Lcd_Temizle(void);                 //Lcd ekranýný temizler
+void Lcd_Puts(char*);                   //String ifade yazdýrýr
+void Lcd_Goto(char,char);               //Kursorü istenilen yere gönderir
+void Lcd_init(void);                    //Lcd baþlangýç ayarlarý
+void Lcd_Putch(unsigned char);  //Tek karekter yazdýrýr
+
+#endif
+
+#include "inc/hw_ints.h"
+#include "inc/hw_types.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/gpio.h"
+
+void Lcd_init() {
+
+        SysCtlPeripheralEnable(LCDPORTENABLE);
+        GPIOPinTypeGPIOOutput(LCDPORT, 0xFF);
+
+        SysCtlDelay(50000);
+
+        GPIOPinWrite(LCDPORT, RS,  0x00 );
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7,  0x30 );
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(10);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7,  0x30 );
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(10);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7,  0x30 );
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(10);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7,  0x20 );
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(10);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+        Lcd_Komut(0x28);
+        Lcd_Komut(0xC0);
+        Lcd_Komut(0x06);
+        Lcd_Komut(0x80);
+        Lcd_Komut(0x28);
+        Lcd_Komut(0x0f);
+        Lcd_Temizle();
+
+}
+void Lcd_Komut(unsigned char c) {
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7, (c & 0xf0) );
+        GPIOPinWrite(LCDPORT, RS, 0x00);
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(50000);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7, (c & 0x0f) << 4 );
+        GPIOPinWrite(LCDPORT, RS, 0x00);
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(10);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+}
+
+void Lcd_Putch(unsigned char d) {
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7, (d & 0xf0) );
+        GPIOPinWrite(LCDPORT, RS, 0x01);
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(10);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+        GPIOPinWrite(LCDPORT, D4 | D5 | D6 | D7, (d & 0x0f) << 4 );
+        GPIOPinWrite(LCDPORT, RS, 0x01);
+        GPIOPinWrite(LCDPORT, E, 0x02);
+        SysCtlDelay(10);
+        GPIOPinWrite(LCDPORT, E, 0x00);
+
+        SysCtlDelay(50000);
+
+}
+void Lcd_Goto(char x, char y){
+
+        if(x==1)
+                Lcd_Komut(0x80+((y-1)%16));
+        else
+                Lcd_Komut(0xC0+((y-1)%16));
+}
+
+void Lcd_Temizle(void){
+        Lcd_Komut(0x01);
+        SysCtlDelay(10);
+}
+
+void Lcd_Puts( char* s){
+
+        while(*s)
+                Lcd_Putch(*s++);
+}
+
+
+void init_port_A() {
+   volatile unsigned long tmp;
+   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA;
+   tmp = SYSCTL_RCGCGPIO_R;
+   GPIO_PORTA_LOCK_R = 0x4C4F434B;
+   GPIO_PORTA_CR_R = 0xFC;
+   GPIO_PORTA_AMSEL_R = 0x00;
+   GPIO_PORTA_PCTL_R = 0x00000000;
+   GPIO_PORTA_DIR_R = 0x03;
+   GPIO_PORTA_AFSEL_R = 0x00;
+   GPIO_PORTA_PUR_R = 0xFC;
+   GPIO_PORTA_DEN_R = 0xFF;      	   }
+
+void init_port_D() {
+   volatile unsigned long tmp;
+   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOD;
+   tmp = SYSCTL_RCGCGPIO_R;
+   GPIO_PORTD_LOCK_R = 0x4C4F434B;
+   GPIO_PORTD_CR_R = 0x01;
+   GPIO_PORTD_AMSEL_R = 0x00;
+   GPIO_PORTD_PCTL_R = 0x00000000;
+   GPIO_PORTD_DIR_R = 0xFE;
+   GPIO_PORTD_AFSEL_R = 0x00;
+   GPIO_PORTD_PUR_R = 0x01;
+   GPIO_PORTD_DEN_R = 0x01;      	  }
+
+
+void yazdir(int top1 , int top2,int x1,int x2,int x3,int x4,char dizi[],char dizi2[]){
+
+
+	if(top1<10){
+		Lcd_Goto(1,x1); Lcd_Puts("0");
+		Lcd_Goto(1,x2);
+		//itoa(top1,dizi,10);
+		Lcd_Puts(dizi);
+	}
+	else{
+		Lcd_Goto(1,x1);
+		//itoa(top2,dizi2,10);
+		Lcd_Puts(dizi2);
+	}
+		   if(top1==0){ Lcd_Goto(1,x2); Lcd_Puts("0"); }
+		   Lcd_Goto(1,14); Lcd_Puts(".");
+
+		   if(top2>10) {
+		   Lcd_Goto(1,x3); /*itoa(top2,dizi2,10); */Lcd_Puts(dizi2);
+		   } else {
+			   Lcd_Goto(1,x3); Lcd_Puts("0");
+			   Lcd_Goto(1,x4);/* itoa(top2,dizi2,10); */Lcd_Puts(dizi2);
+		   }
+		//   Lcd_Goto(2,1); itoa(yirmilik,dizi3,10); Lcd_Puts(dizi3);
+}
+
+
+
+void hesapla(int top1,int top2){
+	volatile unsigned long delay;
+
+	for(delay=0; delay<300000; delay++);
+
+char dizi[10],dizi2[10],dizi3[10];
+ int yirmilik=0,onluk=0,beslik=0,birlik=0;
+ int yarimlik=0,ceyreklik=0,metelik=0,delik=0,kurusluk=0;
+	Lcd_init();
+
+	if(top1/20>=0){
+	   yirmilik=top1/20;
+	   top1=top1-yirmilik*20;
+
+	 /*  Lcd_Goto(1,12); itoa(top1,dizi,10); Lcd_Puts(dizi);
+	   if(top1==0){ Lcd_Goto(1,13); Lcd_Puts("0"); }
+	   Lcd_Goto(1,14); Lcd_Puts(".");
+
+	   if(top2>10) {
+	   Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+	   } else {
+		   Lcd_Goto(1,15); Lcd_Puts("0");
+		   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+	   }*/
+
+	   itoa(top1,dizi,10);
+	   itoa(top2,dizi2,10);
+yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+	   Lcd_Goto(2,1); itoa(yirmilik,dizi3,10); Lcd_Puts(dizi3);
+	   Lcd_Goto(2,3);  Lcd_Puts("yirmilik");
+	   for(delay=0; delay<3000000; delay++);
+	   Lcd_Temizle();}
+
+	if(top1/10>=0){
+		onluk=top1/10;
+		top1=top1-onluk*10;
+	/*	Lcd_Goto(1,12); Lcd_Puts("0");
+		 Lcd_Goto(1,13); itoa(top1,dizi,10); Lcd_Puts(dizi);
+			   Lcd_Goto(1,14); Lcd_Puts(".");
+
+			   if(top2>10) {
+			   	   Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+			   	   } else {
+			   		   Lcd_Goto(1,15); Lcd_Puts("0");
+			   		   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+			   	   }*/
+		itoa(top1,dizi,10);
+		itoa(top2,dizi2,10);
+		yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+			   Lcd_Goto(2,1); itoa(onluk,dizi3,10); Lcd_Puts(dizi3);
+			   Lcd_Goto(2,3);  Lcd_Puts("onluk");
+			   for(delay=0; delay<3000000; delay++);
+			   Lcd_Temizle();	}
+
+	if(top1/5>=0){
+			beslik=top1/5;
+			top1=top1-beslik*5;
+			Lcd_Goto(1,12); Lcd_Puts("0");
+	/*		 Lcd_Goto(1,13); itoa(top1,dizi,10); Lcd_Puts(dizi);
+				   Lcd_Goto(1,14); Lcd_Puts(".");
+
+				   if(top2>10) {
+				   	   Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+				   	   } else {
+				   		   Lcd_Goto(1,15); Lcd_Puts("0");
+				   		   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+				   	   }         */
+
+			itoa(top1,dizi,10);
+					itoa(top2,dizi2,10);
+					yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+				   Lcd_Goto(2,1); itoa(beslik,dizi3,10); Lcd_Puts(dizi3);
+				   Lcd_Goto(2,3);  Lcd_Puts("beslik");
+				   for(delay=0; delay<3000000; delay++);
+				   Lcd_Temizle();}
+
+	if(top1/1>=0){
+		   birlik=top1/1;
+		   top1=top1-birlik*1;
+		/*   Lcd_Goto(1,12); itoa(top1,dizi,10); Lcd_Puts(dizi);
+		   Lcd_Goto(1,13); Lcd_Puts("0");
+		  	   Lcd_Goto(1,14); Lcd_Puts(".");
+
+		  	 if(top2>10) {
+		  	 	   Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+		  	 	   } else {
+		  	 		   Lcd_Goto(1,15); Lcd_Puts("0");
+		  	 		   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+		  	 	   }*/
+		   itoa(top1,dizi,10);
+		   		itoa(top2,dizi2,10);
+		   		yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+
+		  	   Lcd_Goto(2,1); itoa(birlik,dizi3,10); Lcd_Puts(dizi3);
+		  	   Lcd_Goto(2,3);  Lcd_Puts("birlik");
+		  	 for(delay=0; delay<3000000; delay++);
+		  	Lcd_Temizle();	}
+
+
+    if(top2/50>=0){
+			yarimlik=top2/50;
+			top2=top2-yarimlik*50;
+	/*		 Lcd_Goto(1,12); itoa(top1,dizi,10); Lcd_Puts(dizi);
+			 Lcd_Goto(1,13); Lcd_Puts("0");
+				   Lcd_Goto(1,14); Lcd_Puts(".");
+
+				   if(top2>10) {
+				   	   Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+				   	   } else {
+				   		   Lcd_Goto(1,15); Lcd_Puts("0");
+				   		   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+				   	   }*/
+			itoa(top1,dizi,10);
+					itoa(top2,dizi2,10);
+					yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+
+				   Lcd_Goto(2,1); itoa(yarimlik,dizi3,10); Lcd_Puts(dizi3);
+
+				   Lcd_Goto(2,3);  Lcd_Puts("yarimlik");
+				   for(delay=0; delay<3000000; delay++);
+				   Lcd_Temizle();	}
+
+    if(top2/25>=0){
+	    ceyreklik=top2/25;
+	    top2=top2-ceyreklik*25;
+	 /*   Lcd_Goto(1,12); itoa(top1,dizi,10); Lcd_Puts(dizi);
+	    Lcd_Goto(1,13); Lcd_Puts("0");
+	   	   Lcd_Goto(1,14); Lcd_Puts(".");
+
+	   	if(top2>10) {
+	   			Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+	 } else {
+	     Lcd_Goto(1,15); Lcd_Puts("0");
+	     Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+	   					   	   }*/
+
+	    itoa(top1,dizi,10);
+	    		itoa(top2,dizi2,10);
+	    		yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+	   	   Lcd_Goto(2,1); itoa(ceyreklik,dizi3,10); Lcd_Puts(dizi3);
+	   	   Lcd_Goto(2,3);  Lcd_Puts("ceyreklik");
+	   	 for(delay=0; delay<3000000; delay++);
+	   	Lcd_Temizle();		}
+
+	if(top2/10>=0){
+		metelik=top2/10;
+		top2=top2-metelik*10;
+/*		 Lcd_Goto(1,12); itoa(top1,dizi,10); Lcd_Puts(dizi);
+		 Lcd_Goto(1,13); Lcd_Puts("0");
+			   Lcd_Goto(1,14); Lcd_Puts(".");
+			   	if(top2>10) {
+			   			Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+			 } else {
+			     Lcd_Goto(1,15); Lcd_Puts("0");
+			     Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+			   					   	   }*/
+		itoa(top1,dizi,10);
+				itoa(top2,dizi2,10);
+				yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+
+			   Lcd_Goto(1,15); Lcd_Puts("0");
+			   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+			   Lcd_Goto(2,1); itoa(metelik,dizi3,10); Lcd_Puts(dizi3);
+			   Lcd_Goto(2,3);  Lcd_Puts("metelik");
+			   for(delay=0; delay<3000000; delay++);
+			   Lcd_Temizle();	}
+
+		 if(top2/5>=0){
+			delik=top2/5;
+			top2=top2-delik*5;
+	/*		 Lcd_Goto(1,12); itoa(top1,dizi,10); Lcd_Puts(dizi);
+			 Lcd_Goto(1,13); Lcd_Puts("0");
+				   Lcd_Goto(1,14); Lcd_Puts(".");
+				   	if(top2>10) {
+				   			Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+				 } else {
+				     Lcd_Goto(1,15); Lcd_Puts("0");
+				     Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+				   					   	   }*/
+			itoa(top1,dizi,10);
+					itoa(top2,dizi2,10);
+					yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+
+				   Lcd_Goto(1,15); Lcd_Puts("0");
+				   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+				   Lcd_Goto(2,1); itoa(delik,dizi3,10); Lcd_Puts(dizi3);
+				   Lcd_Goto(2,3);  Lcd_Puts("delik");
+				   for(delay=0; delay<3000000; delay++);
+				   Lcd_Temizle();	}
+
+    	 if(top2/1>=0){
+	    	kurusluk=top2/1;
+            top2=top2-kurusluk*1;
+     /*       Lcd_Goto(1,12); itoa(top1,dizi,10); Lcd_Puts(dizi);
+            Lcd_Goto(1,13); Lcd_Puts("0");
+           	   Lcd_Goto(1,14); Lcd_Puts(".");
+       	   	if(top2>10) {
+       	   			Lcd_Goto(1,15); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+       	 } else {
+       	     Lcd_Goto(1,15); Lcd_Puts("0");
+       	     Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+       	   					   	   }*/
+            itoa(top1,dizi,10);
+            		itoa(top2,dizi2,10);
+            		yazdir(top1,top2,12,13,15,16,dizi,dizi2);
+
+
+           	   Lcd_Goto(1,15); Lcd_Puts("0");
+           	   Lcd_Goto(1,16); itoa(top2,dizi2,10); Lcd_Puts(dizi2);
+           	   Lcd_Goto(2,1); itoa(kurusluk,dizi3,10); Lcd_Puts(dizi3);
+           	   Lcd_Goto(2,4);  Lcd_Puts("kurusluk");
+           	 for(delay=0; delay<3000000; delay++);
+           	Lcd_Temizle();
+							}
+    	 for(delay=0; delay<30000000; delay++);
+    	 //	Lcd_Temizle();
+
+
+}
+
+int main(void) {
+	init_port_A();
+	init_port_D();
+        SysCtlClockSet(
+                        SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ
+                        | SYSCTL_OSC_MAIN);
+        Lcd_init();
+
+ char next[3];
+ volatile unsigned int delay;
+        int sayac1=0,sayac2=0,sayac3=0,sayac4=0,sayac5=0,sayac6=0;
+        int button1,button2,button3,button4,button5,button6,button7;
+        int i;
+       int toplam1=0,toplam2=0;
+
+      while(1){
+    	 // there:
+    	    for(delay=0;delay<400000;delay++);
+        button1 = GPIO_PORTA_DATA_R & 0b00000100;
+        button2 = GPIO_PORTA_DATA_R & 0b00001000;
+        button3 = GPIO_PORTA_DATA_R & 0b00010000;
+        button4 = GPIO_PORTA_DATA_R & 0b00100000;
+        button5 = GPIO_PORTA_DATA_R & 0b01000000;
+        button6 = GPIO_PORTA_DATA_R & 0b10000000;
+        button7 = GPIO_PORTD_DATA_R & 0b00000001;
+
+    if(button1!=0x04)
+         {
+    	 sayac1++;
+         sayac1=sayac1%10;
+         itoa(sayac1,next,10);
+         Lcd_Goto(2,1);
+         Lcd_Puts(next);
+         for(delay=0;delay<400000;delay++);
+         }
+  else if(button2!=0x08) {
+       	 sayac2++;
+            sayac2=sayac2%10;
+            itoa(sayac2,next,10);
+            Lcd_Goto(2,2);
+            Lcd_Puts(next);
+            for(delay=0;delay<400000;delay++);
+            }
+    else if(button3!=0x10)
+                {
+                Lcd_Goto(2,3);
+                Lcd_Puts(".");
+                for(delay=0;delay<400000;delay++);
+                }
+    else if(button4!=0x20) {
+          	 sayac4++;
+               sayac4=sayac4%10;
+               itoa(sayac4,next,10);
+               Lcd_Goto(2,4);
+               Lcd_Puts(next);
+               for(delay=0;delay<400000;delay++);
+               }
+    else if(button5!=0x40) {
+          	 sayac5++;
+               sayac5=sayac5%10;
+               itoa(sayac5,next,10);
+               Lcd_Goto(2,5);
+               Lcd_Puts(next);
+               for(delay=0;delay<400000;delay++);
+               }
+    else if(button6!=0x80) {
+          	toplam1=sayac1*10+sayac2*1;
+          	toplam2=sayac4*10+sayac5*1;
+          	char dizi[10],dizi2[10];
+
+          	Lcd_Temizle();
+
+          	if(toplam1>10) {
+          	Lcd_Goto(1,12);  itoa(toplam1,dizi,10);
+          	Lcd_Puts(dizi); }
+          	else {
+          		Lcd_Goto(1,12);  Lcd_Puts("0");
+          		Lcd_Goto(1,13);  itoa(toplam1,dizi,10);
+          		Lcd_Puts(dizi);
+          	}
+
+          	Lcd_Goto(1,14); 	Lcd_Puts(".");
+
+          	if(toplam2>10) {
+          	    Lcd_Goto(1,15);  itoa(toplam2,dizi2,10);
+            	Lcd_Puts(dizi2); }
+          else {
+          	    Lcd_Goto(1,15);  Lcd_Puts("0");
+          	  	Lcd_Goto(1,16);  itoa(toplam2,dizi2,10);
+          	    Lcd_Puts(dizi2);
+          	       }
+          	for(delay=0;delay<4000000;delay++);
+
+          	Lcd_Temizle();
+             //  for(delay=0;delay<400000;delay++);
+               hesapla(toplam1,toplam2);
+               sayac1=0,sayac2=0,sayac3=0,sayac4=0,sayac5=0,sayac6=0;
+               }
+    else if(button7!=0x01){
+    	Lcd_Temizle();
+    	sayac1=0,sayac2=0,sayac3=0,sayac4=0,sayac5=0,sayac6=0;
+    	   for(delay=0;delay<400000;delay++);
+
+    }
+
+        }
+
+   }
+
+
+
+
