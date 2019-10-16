@@ -1,0 +1,7 @@
+,otomobil0,300,1234,bmw,siyah,4,benzin,5,2015,
+,otomobil0,300,100000,bmw,siyah,4,benzin,5,2015,
+,otomobil0,300,100000,bmw,siyah,4,benzin,5,2015,
+,otomobil0,300,100000,bmw,siyah,4,benzin,5,2015,
+,otomobil0,300,100000,bmw,siyah,4,benzin,5,2015,
+,otomobil0,300,100000,bmw,siyah,4,benzin,5,2015,
+,otomobil0,300,100000,bmw,siyah,4,benzin,5,2015,

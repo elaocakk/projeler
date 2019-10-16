@@ -1,0 +1,5 @@
+,otomobil0,300,100000,bmw,siyah,4,benzin,5,2015,
+,otomobil1,330,100000,bmw,siyah,4,benzin,5,2015,
+,bisiklet0,10,500,salcano,siyah,2,motorsuz,1,2018,
+,ucangemi0,500,1000000000,boeing,gri,0,likit hidrojen,1000,2014,
+,otomobil2,0,100000,bmw,siyah,4,benzin,5,2015,

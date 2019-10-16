@@ -1,0 +1,6 @@
+,otomobil0,300,100000,elaaa,siyah,4,benzin,5,2015,
+,bisiklet0,20,500,salcano,siyah,2,motorsuz,1,2018,
+,otomobil1,300,100000,bmw,siyah,4,benzin,5,2015,
+,gemi0,70,5000000,armador,beyaz,0,blend oil,300,2017,
+,ucak0,900,50000000,airbus,beyaz,10,kerosen,500,2016,
+,otomobil2,300,100000,bmw,siyah,4,benzin,5,2015,
